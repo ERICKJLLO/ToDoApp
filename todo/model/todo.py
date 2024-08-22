@@ -25,3 +25,19 @@ class TodoBook:
         new_todo = Todo(code_id=new_id, title=title, description=description)
         self.todos[new_id] = new_todo
         return new_id
+    
+    def pending_todos(self) -> List[Todo]:
+        return [todo for todo in self.todos.values() if not todo.completed]
+
+    def completed_todos(self) -> List[Todo]:
+        return [todo for todo in self.todos.values() if todo.completed]
+
+    def tags_todo_count(self) -> Dict[str, int]:
+        tag_count: Dict[str, int] = {}
+        for todo in self.todos.values():
+            for tag in todo.tags:
+                if tag in tag_count:
+                    tag_count[tag] += 1
+                else:
+                    tag_count[tag] = 1
+        return tag_count
